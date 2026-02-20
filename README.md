@@ -45,7 +45,7 @@ The system will consist of:
 
 | Role | Technology |
 |------|------------|
-| DB Command | PostGresPostgreSQL |
+| DB Command | PostgreSQL |
 | DB Query | PostgreSQL |
 | Event Store (optional) | PostgreSQL |
 
