@@ -45,9 +45,9 @@ The system will consist of:
 
 | Role | Technology |
 |------|------------|
-| DB Command | x |
-| DB Query | x |
-| Event Store (optional) | x |
+| DB Command | PostGresPostgreSQL |
+| DB Query | PostgreSQL |
+| Event Store (optional) | PostgreSQL |
 
 > Separate databases are used to simulate a real CQRS environment with eventual consistency.
 
