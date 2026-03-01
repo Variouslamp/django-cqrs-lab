@@ -98,9 +98,9 @@ Expected services:
 
  The laboratory is going to be composed in 3 phases:
 
- 1- Understand CQRS concept -> a smaller sistem with less caracteristics
- 2- Aply most complex caracteristics -> adding concepts like a message broker
- 3- make a miniature CQRS system -> separating two services aplying the already covered concepts
+ 1. Understand CQRS concept -> a smaller sistem with less caracteristics
+ 2. Aply most complex caracteristics -> adding concepts like a message broker
+ 3. make a miniature CQRS system -> separating two services aplying the already covered concepts
   
 ---
 
