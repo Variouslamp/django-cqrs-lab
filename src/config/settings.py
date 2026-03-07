@@ -11,11 +11,21 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# -----------------------------------------------------------------------------
 
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+ENV_DIR = BASE_DIR / "envs"
+ENVIRONMENT = os.getenv("APP_ENV", "dev")
+env_file = ENV_DIR / f".env.{ENVIRONMENT}"
+if env_file.exists():
+    load_dotenv(env_file)
+else:
+    raise FileNotFoundError(f"No existe el archivo de entorno: {env_file}")
 
+# -----------------------------------------------------------------------------
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
@@ -37,6 +47,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.role',
+    'apps.command_app',
+    'apps.query_app'
 ]
 
 MIDDLEWARE = [
@@ -49,7 +62,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'src.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -66,33 +79,34 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'src.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    "default": {},
-    "command": {
+    "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "command_db",
-        "USER": "command_user",
-        "PASSWORD": "command_password",
-        "HOST": "localhost",
-        "PORT": "5433",
+        "NAME": os.getenv("DB"),
+        "USER": os.getenv("DB_USER"),
+        "PASSWORD": os.getenv("DB_PASSWORD"),
+        "HOST": os.getenv("DB_HOST"),
+        "PORT": os.getenv("DB_PORT"),
     },
     "query": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "query_db",
-        "USER": "query_user",
-        "PASSWORD": "query_password",
-        "HOST": "localhost",
-        "PORT": "5434",
+        "NAME": os.getenv("DB1"),
+        "USER": os.getenv("DB_USER1"),
+        "PASSWORD": os.getenv("DB_PASSWORD1"),
+        "HOST": os.getenv("DB_HOST1"),
+        "PORT": os.getenv("DB_PORT1"),
     },
 }
 
-
+DATABASE_ROUTERS = [
+    "config.routers.CQRSRouter",
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
