@@ -1,2 +1,5 @@
 django
+# Conexion con bases de datos postgres
 psycopg2-binary
+# Utilizacion de variables de entorno
+python-dotenv
