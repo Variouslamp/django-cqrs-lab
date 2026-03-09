@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class QueryAppConfig(AppConfig):
-    name = 'apps.query_app'
+    name = 'apps.product_view_app'

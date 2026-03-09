@@ -1,7 +1,7 @@
 class CQRSRouter:
     def db_for_read(self, model, **hints):
         # Todo lo que venga de la app de lectura va a la DB de lectura
-        if model._meta.app_label == 'query_app':
+        if model._meta.app_label == 'product_view_app':
             return 'query'
         return 'default'
 
