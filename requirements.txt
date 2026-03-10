@@ -3,3 +3,5 @@ django
 psycopg2-binary
 # Utilizacion de variables de entorno
 python-dotenv
+# Manejar imagenes
+pillow
