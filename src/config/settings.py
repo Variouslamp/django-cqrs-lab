@@ -14,9 +14,11 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-# -----------------------------------------------------------------------------
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+# -----------------------------------------------------------------------------
+
 ENV_DIR = BASE_DIR / "envs"
 ENVIRONMENT = os.getenv("APP_ENV", "dev")
 env_file = ENV_DIR / f".env.{ENVIRONMENT}"
@@ -37,6 +39,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Where the imagenes are saved
+
+MEDIA_ROOT = BASE_DIR / 'media/'
 
 # Application definition
 
