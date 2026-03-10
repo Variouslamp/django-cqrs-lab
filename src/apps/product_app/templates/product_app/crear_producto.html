@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Producto</title>
+
+    <style>
+        /* --- ESTILOS BASE --- */
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body{
+            background-color:#f0f2f5;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+            padding: 20px;
+        }
+
+        .container{
+            background-color:white;
+            padding:2.5rem;
+            border-radius:12px;
+            box-shadow:0 4px 20px rgba(0,0,0,0.1);
+            width:100%;
+            max-width:500px;
+        }
+
+        h1{
+            color:#333;
+            margin-bottom:1.5rem;
+            font-size:1.6rem;
+            text-align:center;
+        }
+
+        /* --- ESTRUCTURA DEL FORMULARIO --- */
+        .form-group{
+            display:flex;
+            flex-direction:column;
+            margin-bottom:1rem;
+        }
+
+        label{
+            margin-bottom:5px;
+            font-weight:600;
+            color:#444;
+        }
+
+        input, textarea, select{
+            padding:10px;
+            border-radius:8px;
+            border:1px solid #ccc;
+            font-size:0.95rem;
+            width: 100%;
+            outline: none;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: #4f46e5;
+        }
+
+        textarea{
+            resize:vertical;
+            min-height:80px;
+        }
+
+        /* --- FILA ESPECIAL: SELECT + BOTÓN + --- */
+        .input-with-btn {
+            display: flex;
+            gap: 8px; /* Espacio entre el select y el botón */
+            align-items: center;
+        }
+
+        .input-with-btn select {
+            flex-grow: 1; /* El select toma el espacio sobrante */
+        }
+
+        .btn-add-plus {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px; /* Tamaño cuadrado */
+            height: 42px;
+            background-color: #4f46e5;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.4rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            flex-shrink: 0; /* Evita que el botón se encoja */
+        }
+
+        .btn-add-plus:hover {
+            background-color: #4338ca;
+            transform: scale(1.05);
+        }
+
+        /* --- BOTONES DE ACCIÓN --- */
+        .button-group{
+            display:flex;
+            justify-content:space-between;
+            margin-top:1.5rem;
+            gap: 10px;
+        }
+
+        .btn{
+            padding:12px 18px;
+            border-radius:8px;
+            font-weight:600;
+            border:none;
+            cursor:pointer;
+            font-size:0.95rem;
+            transition:all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary{
+            background-color:#4f46e5;
+            color:white;
+            flex: 2;
+        }
+
+        .btn-primary:hover{
+            background-color:#4338ca;
+            transform:translateY(-2px);
+        }
+
+        .btn-secondary{
+            background-color:white;
+            color:#4f46e5;
+            border:2px solid #4f46e5;
+            flex: 1;
+        }
+
+        .btn-secondary:hover{
+            background-color:#f5f3ff;
+            transform:translateY(-2px);
+        }
+
+        /* Errores de Django */
+        .errorlist {
+            color: #dc2626;
+            list-style: none;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Agregar Nuevo Producto</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                
+                {% if field.name == 'categoria' %}
+                    <div class="input-with-btn">
+                        {{ field }}
+                        <a href="/product/add-category/" class="btn-add-plus" title="Añadir categoría">+</a>
+                    </div>
+                {% else %}
+                    {{ field }}
+                {% endif %}
+
+                {% if field.errors %}
+                    <div class="errorlist">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <div class="button-group">
+            <button type="submit" class="btn btn-primary">Guardar producto</button>
+            <a href="/" class="btn btn-secondary">Cancelar</a>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

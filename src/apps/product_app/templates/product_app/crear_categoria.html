@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Categoría</title>
+
+    <style>
+        /* --- ESTILOS BASE --- */
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body{
+            background-color:#f0f2f5;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
+
+        .container{
+            background-color:white;
+            padding:2.5rem;
+            border-radius:12px;
+            box-shadow:0 10px 25px rgba(0,0,0,0.05);
+            width:100%;
+            max-width:400px; /* Un poco más angosto ya que es un solo campo */
+        }
+
+        h1{
+            color:#1f2937;
+            margin-bottom:1.5rem;
+            font-size:1.5rem;
+            text-align:center;
+            font-weight: 700;
+        }
+
+        /* --- ESTILO DE LOS CAMPOS DE DJANGO --- */
+        .form-group{
+            display:flex;
+            flex-direction:column;
+            margin-bottom:1.2rem;
+        }
+
+        label{
+            margin-bottom:8px;
+            font-weight:600;
+            color:#4b5563;
+            font-size: 0.9rem;
+        }
+
+        /* Django renderizará el CharField como un <input type="text"> */
+        input[type="text"], 
+        input[type="number"],
+        select,
+        textarea {
+            padding:12px;
+            border-radius:8px;
+            border:1px solid #d1d5db;
+            font-size:1rem;
+            width: 100%;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        /* --- BOTONES --- */
+        .button-group{
+            display:flex;
+            flex-direction: column; /* Botones uno sobre otro para formularios simples */
+            gap: 10px;
+            margin-top:1.5rem;
+        }
+
+        .btn{
+            padding:12px;
+            border-radius:8px;
+            font-weight:600;
+            border:none;
+            cursor:pointer;
+            font-size:0.95rem;
+            transition:all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-primary{
+            background-color:#4f46e5;
+            color:white;
+        }
+
+        .btn-primary:hover{
+            background-color:#4338ca;
+            transform:translateY(-1px);
+        }
+
+        .btn-secondary{
+            background-color:transparent;
+            color:#6b7280;
+        }
+
+        .btn-secondary:hover{
+            color:#111827;
+        }
+
+        /* Errores */
+        .errorlist {
+            color: #ef4444;
+            list-style: none;
+            font-size: 0.85rem;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Nueva Categoría</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">
+                    {{ field.label|default:"Nombre de la categoría" }}
+                </label>
+                
+                {{ field }}
+
+                {% if field.errors %}
+                    <div class="errorlist">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <div class="button-group">
+            <button type="submit" class="btn btn-primary">Crear Categoría</button>
+            <a href="javascript:history.back()" class="btn btn-secondary">Volver atrás</a>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>
