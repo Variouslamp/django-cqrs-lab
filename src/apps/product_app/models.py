@@ -32,7 +32,7 @@ class Producto(models.Model):
     )
     descripcion = models.TextField()
     imagen = models.ImageField(
-        upload_to="productos/"
+        upload_to="product_image/"
     )
     categoria = models.ForeignKey(
         Categoria,
